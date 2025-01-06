@@ -50,8 +50,8 @@ RUN git clone --branch=$ODOO_VERSION --depth=1000 https://github.com/odoo/odoo.g
 
 # Install Odoo python package requirements
 USER root
-# RUN pip3 install pip --upgrade
-RUN pip3 install --no-cache-dir -r odoo/requirements.txt
+RUN pip install pip --upgrade
+RUN pip install --no-cache-dir -r odoo/requirements.txt
 
 # Define runtime configuration
 COPY src/entrypoint.sh /opt/odoo
