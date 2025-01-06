@@ -1,5 +1,5 @@
 
-FROM ubuntu:jammy
+FROM ubuntu:noble
 
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 
