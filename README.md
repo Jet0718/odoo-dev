@@ -1,14 +1,14 @@
-# Junari Odoo Docker image
+# Jet Odoo Docker image
 
 ```
 We now deploy seperate tags per version:
-junari/odoo:14.0   <- Latest v14 image
-junari/odoo:14.0-YYYY-MM-DD-GITREV   <- v14 at a specific revision
+jet0718/odoo:18.0   <- Latest v18 image
+jet0718/odoo:18.0-YYYY-MM-DD-GITREV   <- v18 at a specific revision
 ```
 
-Junari Open Source Docker image for Odoo Development and Production
+Jet Open Source Docker image for Odoo Development and Production
 
-* Python 3.8 / Debian Bullseye
+* Python 3.12 / Debian Bullseye
 * Odoo Community Edition, installed from source in `/opt/odoo`
 * Supports custom addons in `/opt/odoo/custom_addons`
 * Includes an `odoo-config` script for modifying the odoo config file in derrived images
@@ -21,7 +21,7 @@ Junari Open Source Docker image for Odoo Development and Production
 ## Prerequisites
 
 * [Docker Desktop](https://www.docker.com/products/docker-desktop)
-* Access to a PostgreSQL 9+ Database Server
+* Access to a PostgreSQL 15+ Database Server
 
 ## Configuring
 
@@ -44,7 +44,7 @@ your own version, or use our `odoo-config` tool to update individual settings.
 To override individual settings, create and build you own `Dockerfile` with content such as the below:
 
 ```Dockerfile
-FROM junari/odoo:14.0
+FROM jet0718/odoo:18.0
 
 RUN odoo-config addons_path+=,/opt/odoo/custom_addons/my_lib/addons \
                 list_db=True
@@ -60,7 +60,7 @@ The following example walks you through creating a new Odoo database using this 
 2. Create a blank PostgreSQL database owned by your Odoo database user, e.g.
 
 ```sql
-CREATE DATABASE odoo14 OWNER odoo ENCODING UTF8;
+CREATE DATABASE odoo18 OWNER odoo ENCODING UTF8;
 ```
 
 3. Run this image with the following command in the Terminal (or in
@@ -73,10 +73,10 @@ docker run --rm -it \
     -p 8069:8069 \
     --env-file=odoo.env \
     junari/odoo \
-    odoo -d odoo14 -i base --without-demo=all --load-language=en_GB --stop-after-init
+    odoo -d odoo18 -i base --without-demo=all --load-language=en_GB --stop-after-init
 ```
 
-(where `odoo14` is the new database name)
+(where `odoo18` is the new database name)
 
 4. Now that your database has been initialised, you can restart it with a
    simpler command. You might find it useful to save the below into a
@@ -87,7 +87,7 @@ docker run --rm -it \
     -v junari-odoo-data:/opt/odoo/data \
     -p 8069:8069 \
     --env-file=odoo.env \
-    junari/odoo odoo -d odoo14
+    jet0718/odoo-dev:18.0 odoo -d odoo18
 ```
 
 Your Odoo system should now be accessible at http://localhost:8069 . You can log
@@ -100,8 +100,8 @@ in using the default user: admin, password: admin
 The below script should be run in Git Bash on windows, or in the Terminal application on Mac and Linux
 
 ```bash
-# Run the junari/odoo docker image with default settings
-./run.sh
+# Run the jet0718/odoo-dev docker image with default settings
+./runj.sh
 ```
 
 You can also pass any `odoo-bin` args via `run.sh`, e.g.:
