@@ -15,7 +15,7 @@ RUN apt-get update && \
     apt-get install -y libxml2-dev libxslt1-dev libldap2-dev libsasl2-dev \
     libtiff5-dev libjpeg-dev libopenjp2-7-dev zlib1g-dev libfreetype6-dev \
     liblcms2-dev libwebp-dev libharfbuzz-dev libfribidi-dev libxcb1-dev libpq-dev \
-    python3-pip python3-venv
+    python3-pip
 
 # Install additional tools needed for build & run
 RUN apt-get update && apt-get install -y python3.12 \
@@ -66,10 +66,6 @@ RUN mkdir /opt/odoo/data /opt/odoo/custom_addons \
 
 ENV ODOO_RC=/etc/odoo/odoo.conf
 ENV PATH="/opt/odoo/scripts:${PATH}"
-RUN python3 -m venv /opt/odoo/odoo-venv
-ENV PATH="/opt/odoo/odoo-venv/bin:${PATH}"
-RUN pip install pip --upgrade
-RUN pip install --no-cache-dir -r /opt/odoo/odoo/requirements.txt
 
 EXPOSE 8069
 ENTRYPOINT ["/opt/odoo/entrypoint.sh"]
