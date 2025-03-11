@@ -3,7 +3,7 @@ FROM ubuntu:noble
 
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 
-ARG ODOO_VERSION=18.0
+ARG ODOO_VERSION=17.0
 ARG ODOO_REVISION=20250123
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -42,16 +42,8 @@ WORKDIR /opt/odoo
 USER odoo
 RUN git clone --branch=$ODOO_VERSION --depth=1000 https://github.com/odoo/odoo.git odoo
 
-# Patch odoo requirements file
-# RUN sed -i "s/gevent==21\.8\.0 ; python_version > '3\.10'/gevent==22\.10\.2 ; python_version > '3\.10'/" odoo/requirements.txt \
-#     && sed -i "s/greenlet==1\.1\.2 ; python_version  > '3\.10'/greenlet==2\.0\.1 ; python_version > '3\.10'/" odoo/requirements.txt
-#     && sed -i "s/lxml==4\.6\.5/lxml==4\.9\.2/" odoo/requirements.txt \
-#     && sed -i "s/reportlab==3\.5\.59/reportlab==3\.6\.12/" odoo/requirements.txt
-
 # Install Odoo python package requirements
 USER root
-# RUN pip install pip --upgrade
-# RUN pip install --no-cache-dir -r odoo/requirements.txt
 
 # Define runtime configuration
 COPY src/entrypoint.sh /opt/odoo
